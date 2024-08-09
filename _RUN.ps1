@@ -2,7 +2,7 @@
 . "$($PSScriptRoot)\UserExperience.ps1"
 
 # main menu
-$options = @("Get by Diameter", "Get by rim radius")
+$options = @("Get by Diameter", "Get by rim radius", "Get by rim radius & tyre depth")
 $mainMenuSelection = ShowSelectionDialog -Prompt "Select an option" -Options $options -ShowExitOption $true
 
 switch ($mainMenuSelection) {
@@ -18,5 +18,12 @@ switch ($mainMenuSelection) {
         $radius = EnterNumber -Prompt "Enter rim radius (0 for all)"
         GetByRadius $radius | Write-Output
         exit
+    }
+    3 {
+        # tyre depth calculation
+        $radius = EnterNumber -Prompt "Enter rim radius (0 for all)"
+        $depth = EnterNumber -Prompt "Enter tyre depth (mm)" -blockZero $true
+        $padding = EnterNumber -Prompt "Enter padding (mm)"
+        GetByRadiusAndDepth -radius $radius -depth $depth -depthPadding $padding | Write-Output
     }
 }
