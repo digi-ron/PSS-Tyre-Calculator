@@ -29,6 +29,9 @@ function GetFileInformation {
 }
 
 function GetByRadius([Parameter(Mandatory=$true)][int]$radius) {
+    if($radius -eq 0) {
+        return GetFileInformation
+    }
     $output = GetFileInformation | Where-Object { $_.RimSize -eq $radius }
     return $output
 }
