@@ -1,4 +1,4 @@
-function GetFileInformation (){
+function GetFileInformation {
     $parsedFile = Get-Content -Path .\sizes.json | ConvertFrom-Json
     $informationGathered = @()
 
@@ -33,7 +33,11 @@ function GetByRadius([Parameter(Mandatory=$true)][int]$radius) {
     return $output
 }
 
-function GetByDiameter([Parameter(Mandatory=$true)][int]$diameter, [int]$paddingmm = 0) {
+function GetByDiameter {
+    param (
+        [Parameter(Mandatory=$true)][int]$diameter,
+        [int]$paddingmm = 0
+    )
     $output = GetFileInformation | Where-Object { $_.Diameter -le ($diameter + $paddingmm) -and $_.Diameter -ge ($diameter - $paddingmm) }
     return $output
 }
