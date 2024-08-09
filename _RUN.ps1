@@ -7,12 +7,14 @@ $mainMenuSelection = ShowSelectionDialog -Prompt "Select an option" -Options $op
 
 switch ($mainMenuSelection) {
     1 {
+        # diameter calculation
         $diameter = EnterNumber -Prompt "Enter diameter (mm)" -blockZero $true
         $padding = EnterNumber -Prompt "Enter padding (mm)"
         GetByDiameter -diameter $diameter -paddingmm $padding | Write-Output
         exit
     }
     2 {
+        # rim radius calculation
         $radius = EnterNumber -Prompt "Enter rim radius (0 for all)"
         GetByRadius $radius | Write-Output
         exit
