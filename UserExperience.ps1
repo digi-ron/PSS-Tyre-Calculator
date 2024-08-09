@@ -33,3 +33,28 @@ function ShowSelectionDialog {
     }
     return $selection
 }
+
+function EnterNumber {
+    param (
+        [Parameter(Mandatory=$true)][string]$prompt,
+        [int]$maxNum = -1,
+        [bool]$blockZero = $false
+    )
+    $number = -1
+    while ($number -lt 0) {
+        $temp = Read-Host -Prompt $prompt
+        try {
+            $temp = [int]$temp
+            if ($temp -lt 0 -or ($maxNum -ge 0 -and $temp -gt $maxNum)) {
+                throw "Invalid number - Out of range!"
+            }
+            if ($temp -eq 0 -and $blockZero) {
+                throw "Invalid number - Zero is not allowed!"
+            }
+            $number = $temp
+        } catch {
+            Write-Error "ERROR: $($_.Exception.Message)"
+        }
+    }
+    return $number
+}
