@@ -11,13 +11,11 @@ switch ($mainMenuSelection) {
         $diameter = EnterNumber -Prompt "Enter diameter (mm)" -blockZero $true
         $padding = EnterNumber -Prompt "Enter padding (mm)"
         GetByDiameter -diameter $diameter -paddingmm $padding | Select-Object -Property Size, Diameter | Write-Output
-        exit
     }
     2 {
         # rim radius calculation
         $radius = EnterNumber -Prompt "Enter rim radius (0 for all)"
         GetByRadius $radius | Select-Object -Property Size, Diameter | Write-Output
-        exit
     }
     3 {
         # tyre depth calculation
