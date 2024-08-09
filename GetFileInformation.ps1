@@ -48,6 +48,6 @@ function GetByRadiusAndDepth {
         [Parameter(Mandatory=$true)][int]$depth,
         [int]$depthPadding = 0
     )
-    $output = GetFileInformation | Where-Object { $_.RimSize -eq $radius -and $_.AspectRatio -le ($depth + $depthPadding) -and $_.AspectRatio -ge ($depth - $depthPadding) }
+    $output = GetFileInformation | Where-Object { $_.RimSize -eq $radius -and $_.Width -le ($depth + $depthPadding) -and $_.Width -ge ($depth - $depthPadding) }
     return $output
 }
