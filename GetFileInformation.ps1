@@ -51,3 +51,13 @@ function GetByRadiusAndDepth {
     $output = GetFileInformation | Where-Object { $_.RimSize -eq $radius -and $_.Width -le ($depth + $depthPadding) -and $_.Width -ge ($depth - $depthPadding) }
     return $output
 }
+
+function GetByRadiusAndDiameter {
+    param (
+        [Parameter(Mandatory=$true)][int]$radius,
+        [Parameter(Mandatory=$true)][int]$diameter,
+        [int]$paddingmm = 0
+    )
+    $output = GetFileInformation | Where-Object { $_.RimSize -eq $radius -and $_.Diameter -le ($diameter + $paddingmm) -and $_.Diameter -ge ($diameter - $paddingmm) }
+    return $output
+}
