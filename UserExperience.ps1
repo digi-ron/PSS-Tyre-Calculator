@@ -58,3 +58,31 @@ function EnterNumber {
     }
     return $number
 }
+
+function ParseTyreSize {
+    $depth = ""
+    $aspectRatio = ""
+    $rimSize = ""
+    $valid = $false
+
+    do {
+        $rawSize = Read-Host -Prompt "Enter tyre size"
+        try {
+            $depth = [double]($rawSize -split "/")[0]
+            $aspectRatio = [double](($rawSize -split "/")[1] -split "R")[0]
+            $rimSize = [double]($rawSize -split "R")[1]
+            $valid = $true
+            Write-Host "Parsed: $($depth)/$($aspectRatio)R$($rimSize)"
+            $calculatedDiameter = [int][math]::Ceiling(($depth * ($aspectRatio / 100) * 2) + (25.4 * $rimSize))
+            return [PSCustomObject]@{
+                Width = $depth
+                AspectRatio = $aspectRatio
+                RimSize = $rimSize
+                Size = $rawSize.ToUpper()
+                Diameter = $calculatedDiameter
+            }
+        } catch {
+            Write-Host "Invalid tyre size"
+        }
+    } while (-not $valid)
+}

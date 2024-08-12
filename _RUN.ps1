@@ -2,7 +2,7 @@
 . "$($PSScriptRoot)\UserExperience.ps1"
 
 # main menu
-$options = @("List all by Diameter", "Get by Diameter", "Get by rim radius", "Get by rim radius & tyre depth", "Get by rim radius & tyre diameter")
+$options = @("List all by Diameter", "Get by Diameter", "Get by rim radius", "Get by rim radius & tyre depth", "Get by rim radius & tyre diameter", "Parse Tyre Size")
 $mainMenuSelection = ShowSelectionDialog -Prompt "Select an option" -Options $options -ShowExitOption $true
 
 switch ($mainMenuSelection) {
@@ -33,5 +33,9 @@ switch ($mainMenuSelection) {
         $diameter = EnterNumber -Prompt "Enter diameter (mm)" -blockZero $true
         $padding = EnterNumber -Prompt "Enter padding (mm)"
         GetByRadiusAndDiameter -radius $radius -diameter $diameter -paddingmm $padding | Select-Object -Property Size, Diameter | Write-Output
+    }
+    6 {
+        # parse tyre size
+        ParseTyreSize | Select-Object -Property Size, Diameter | Write-Output
     }
 }
