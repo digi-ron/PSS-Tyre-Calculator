@@ -68,6 +68,9 @@ function ParseTyreSize {
     do {
         $rawSize = Read-Host -Prompt "Enter tyre size"
         try {
+            if($rawSize -notmatch "^\d{2,3}/\d{2,3}R\d{2,3}$") {
+                throw "Invalid tyre size"
+            }
             $depth = [double]($rawSize -split "/")[0]
             $aspectRatio = [double](($rawSize -split "/")[1] -split "R")[0]
             $rimSize = [double]($rawSize -split "R")[1]
